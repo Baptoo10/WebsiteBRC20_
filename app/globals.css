@@ -2,7 +2,7 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #68b088;
+    background-color: #ebd3b9;
     margin: 0;
     padding: 0;
 }
@@ -62,11 +62,11 @@ section li {
     margin-bottom: 5px;
 }
 
-#yellowbutton {
-    background: #ffd700;
+#bluebutton {
+    background: #351c75;
     font-size: 16px;
     font-weight: 700;
-    background-color: #ffd700; /* Couleur jaune-or */
+    background-color: #351c75; /* Couleur jaune-or */
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -74,7 +74,7 @@ section li {
     transition: background-color 0.3s ease;
 }
 
-#yellowbutton:hover {
+#bluebutton:hover {
     background-color: #000; /* Couleur jaune-or foncée au survol */
 }
 

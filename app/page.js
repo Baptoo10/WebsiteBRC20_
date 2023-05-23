@@ -32,44 +32,119 @@ const TokenInfo = () => {
     return (
       //  <main style={{ width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column'}}>
         <body>
-            <div style={{ borderBottom: '1px solid #ccc', marginBottom: '20px', marginLeft:'5%', marginRight:'5%'}}>
-                <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '5%' }}>
+        <div style={{ borderBottom: '2px solid #351c75', marginLeft: '5%', marginRight: '5%' }}>
+            <header style={{ width: '100%' }}>
+                <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 5%' }}>
+                    <ul style={{ display: 'flex', listStyle: 'none', gap: '10px', alignItems: 'center', width: '100%', marginBottom: '0' }}>
 
-                    <div style={{marginLeft:'5%' }}>
-                        <img style={{ width: '450px'}} src="/BXBTheaderlogo_transparent.png" alt="BXBTheaderlogo"/>
-                    </div>
+                        <li>
+                            <div>
+                                <img style={{ width: '175px' }} src="/BXBTheaderlogo_transparent.png" alt="BXBTheaderlogo" />
+                            </div>
+                        </li>
 
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <Link href="https://unisat.io/market?tick=bxbt&tab=1">
-                            <Button size="sm" id="yellowbutton">
-                                <span>Buy $BXBT</span>
-                            </Button>
-                        </Link>
-                    </div>
+                        <li style={{ paddingLeft: '10%' }}>
+                            <Link href="https://bxbtcoreteam.gitbook.io/_bxbt_/informations/overview">
+                                <Button size="sm" id="bluebutton">
+                                    <span>Off BXBT Doc</span>
+                                </Button>
+                            </Link>
+                        </li>
 
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <Link href="https://bxbtcoreteam.gitbook.io/_bxbt_/informations/overview">
-                            <Button size="sm" id="yellowbutton">
-                                <span>Off BXBT Doc</span>
-                            </Button>
-                        </Link>
-                    </div>
+                        <li style={{ borderLeft: '2px solid #000000', paddingLeft: '10%' }}>
+                            <Link href="https://unisat.io/market?tick=bxbt&tab=1">
+                                <Button size="sm" id="bluebutton">
+                                    <span>Buy $BXBT</span>
+                                </Button>
+                            </Link>
+                        </li>
 
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginRight:'5%' }}>
-                        {walletConnected ? (
-                            <p>Wallet Connected!</p>
-                        ) : (
-                            <Button onPress={requestaccount} size="sm" id="yellowbutton">
-                                <span>Connect Wallet</span>
-                            </Button>
-                        )}
-                    </div>
-                </header>
+                        <li style={{ borderLeft: '2px solid #000000', paddingLeft: '10%' }}>
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                {walletConnected ? (
+                                    <p>Wallet Connected!</p>
+                                ) : (
+                                    <Button onPress={requestaccount} size="sm" id="bluebutton">
+                                        <span>Connect Wallet</span>
+                                    </Button>
+                                )}
+                            </div>
+                        </li>
+
+                        <li style={{ borderLeft: '2px solid #000000', paddingLeft: '10%' }}>
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                <Link href="https://bxbtcoreteam.gitbook.io/_bxbt_/informations/overview">
+                                    <Button size="sm" id="bluebutton">
+                                        <span>Join the Discord</span>
+                                    </Button>
+                                </Link>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+        </div>
+
+
+        <div>
+                <br />
+                <img style={{ display: 'block', margin: '0 auto', maxWidth:'90%', borderRadius: '0.5%'}} src="/bitcoin_fire.png" alt="bitcoin_fire" />
+
             </div>
 
             <div>
+                <div style={{ display: 'grid', justifyContent: 'center' }}>
+                    <Row justify="space-between" align="flex-start" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '5%' }}>
+                        <div>
+                            <Row justify="center" align="stretch">
+                                <Col css={{ marginTop: '$4' }}></Col>
+                            </Row>
+                        </div>
+                    </Row>
+                </div>
+
                 <br />
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', justifyContent: 'center', alignItems: 'center' }}>
+                    <div style={{ marginLeft: '5%', alignItems: 'center' }}>
+                        <div
+                            style={{
+                                background: '#ffffff',
+                                borderRadius: '10px',
+                                boxShadow: '3%',
+                                padding: '10px',
+                                textAlign: 'left',
+                                }}
+                        >
+                            <h2>$BXBT : Explore a new burn mechanism</h2>
+                            <br />
+                            <p>
+                                With $BXBT BRC-20 token, we present a new way to increase the value of your token with an innovative "burn" feature.
+                                <br /><br />
+                                This revolutionary feature offers $BXBT token holders the ability to reduce the total token supply by burning a specific amount of tokens.
+                                The "burn" process involves irreversibly sending tokens to a special address, known as a "burn address", where they are permanently removed from circulation.
+                            </p>
+                        </div>
+
+
+                        <h2>You Have : xxx (info a reprendre du wallet) BXBT / if 0 bxbt = let's go buy some</h2>
+                    </div>
+
+
+                    <div>
+                        <Row justify="center" css={{ marginTop: '$4' }}>
+                            <Col>
+                                <Link href="https://twitter.com/bxbt_brc20">
+                                <img style={{ display: 'block', margin: '0 auto', width:'250px' }} src="/burn_video.gif" alt="burn_gif" />
+                                </Link>
+                            </Col>
+                        </Row>
+                    </div>
+                </div>
+
             </div>
+
+
 
             <div>
                 <div style={{ display: 'grid', justifyContent: 'center' }}>
@@ -99,20 +174,44 @@ const TokenInfo = () => {
                         )}
                     </div>
                     <div>
-                        <Row justify="center" css={{ marginTop: '$4' }}>
-                            <Col>
-                                <ul>
-                                    <li>totalSupply: {totalSupply}</li>
-                                    <li>totalBurned: {totalBurned}</li>
-                                    <li>totalWallets: {totalSupply}</li>
-                                    <li>totalSupply: {totalSupply}</li>
-                                </ul>
-                            </Col>
-                        </Row>
+                        <div>
+                            <Row justify="center" css={{ marginTop: '$4' }}>
+                                <Col>
+                                    <ul style={{ listStyle: 'none', padding: '0' }}>
+                                        <li style={{ marginBottom: '10px' }}>
+                                            <div style={{ border: '1px solid #b72015', borderRadius: '5px', padding: '10px' }}>
+                                                totalSupply: {totalSupply}
+                                            </div>
+                                        </li>
+                                        <li style={{ marginBottom: '10px' }}>
+                                            <div style={{ border: '1px solid #b72015', borderRadius: '5px', padding: '10px' }}>
+                                                totalBurned: {totalBurned}
+                                            </div>
+                                        </li>
+                                        <li style={{ marginBottom: '10px' }}>
+                                            <div style={{ border: '1px solid #b72015', borderRadius: '5px', padding: '10px' }}>
+                                                totalWallets: {totalSupply}
+                                            </div>
+                                        </li>
+                                        <li style={{ marginBottom: '10px' }}>
+                                            <div style={{ border: '1px solid #b72015', borderRadius: '5px', padding: '10px' }}>
+                                                totalSupply: {totalSupply}
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </Col>
+                            </Row>
+                        </div>
+
                     </div>
                 </div>
 
             </div>
+
+            <footer style={{ padding: '20px', textAlign: 'center' }}>
+                <p style={{ margin: '0' }}>Ceci est le contenu du footer</p>
+            </footer>
+
         </body>
      //   </main>
 
@@ -120,3 +219,4 @@ const TokenInfo = () => {
 };
 
 export default TokenInfo;
+//#ba936a
