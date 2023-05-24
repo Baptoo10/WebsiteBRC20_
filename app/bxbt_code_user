@@ -1,0 +1,54 @@
+
+export interface TokenBalance {
+  UserBalance: string;
+  ticker: string;
+}
+
+export interface TokenInfo {
+  totalSupply: string;
+  totalMinted: string;
+}
+
+export interface AddressTokenSummary {
+      tokenBalance: TokenBalance;
+      tokenInfo: TokenInfo;
+}
+
+ const [tokenSummary, setTokenSummary] = useState<AddressTokenSummary>({
+     tokenBalance: {
+       ticker: 'bxbt,
+       UserBalance: ''
+     },
+     tokenInfo: {
+       totalSupply: '',
+       totalMinted: ''
+     }
+ });
+
+
+const WalletContext = createContext<{
+  wallet: await window.unisat; //quoi ecrire pour acceder au wallet ?
+} | null>(null);
+
+
+const useWallet = () => {
+  const { wallet } = useContext(WalletContext) as {
+    wallet: WalletController;
+  };
+
+  return wallet;
+};
+
+ const wallet = useWallet();
+ useEffect(() => {
+    wallet.getBRC20Summary(account.address, ticker).then((tokenSummary) => {
+      setTokenSummary(tokenSummary);
+    });
+  }, []);
+
+   const balance = useMemo(() => {
+      if (!tokenSummary) {
+        return '--';
+      }
+      return tokenSummary?.tokenBalance.overallBalance;
+    }, [tokenSummary]);

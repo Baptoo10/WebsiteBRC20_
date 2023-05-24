@@ -1,16 +1,24 @@
 "use client"; // client component
 
-import { useEffect, useMemo, useState } from 'react';
+import React, { useState, useMemo, useEffect, useContext, createContext } from 'react';
 import './globals.css';
 import { Container, Row, Col } from '@nextui-org/react';
 import { Button } from '@nextui-org/react';
 import Link from "next/link";
 import { NextUIProvider } from '@nextui-org/react';
 
-
-const LocationState = {
-    ticker: '',
+/*
+const TokenBalance = {
+    availableBalance: '',
+    ticker: 'bxbt',
 };
+
+const TokenInfo = {
+    totalSupply: '100000000',
+    totalMinted: '100000000',
+}
+*/
+
 
 const TokenInfo = () => {
     const totalSupply = 1000000;
@@ -31,23 +39,14 @@ const TokenInfo = () => {
         total: 0,
     });
     const [network, setNetwork] = useState("livenet");
+    //const [bxbtBalance, setBxbtBalance] = useState('');
 
-    const getBasicInfo = async () => {
-        const unisat = window.unisat;
-        const [address] = await unisat.getAccounts();
-        setAddress(address);
 
-        const balance = await unisat.getBalance();
-        setBalance(balance);
 
-        const network = await unisat.getNetwork();
-        setNetwork(network);
-    };
+   // const state = Object.create(LocationState);
+   // state.ticker = 'BXBT';
 
-    const state = Object.create(LocationState);
-    state.ticker = 'BXBT';
-
-    async function getBXBTbalance() {
+   /*async function getBXBTbalance() {
         await requestaccount();
 
         if (walletConnected) {
@@ -62,9 +61,51 @@ const TokenInfo = () => {
         } else {
             console.error("Veuillez installer Unisat pour interagir avec cette fonction.");
         }
-    }
+    }*/
+/*
+    const WalletContext = createContext(null);
 
-    const [isHovered, setIsHovered] = useState(false);
+    const useWallet = () => {
+        const { wallet } = useContext(WalletContext);
+
+        return wallet;
+    };
+
+    function TokenBalanceComponent() {
+        const [tokenSummary, setTokenSummary] = useState({
+            tokenBalance: {
+                ticker: 'bxbt',
+                UserBalance: ''
+            },
+            tokenInfo: {
+                totalSupply: '',
+                totalMinted: ''
+            }
+        });
+
+        const wallet = useWallet();
+
+        useEffect(() => {
+            if (wallet) {
+                wallet.tokenSummary(address, 'bxbt').then((tokenSummary) => {
+                    setTokenSummary(tokenSummary);
+                });
+            }
+        }, [wallet]);
+
+        const balanceBXBT = useMemo(() => {
+            if (!tokenSummary) {
+                return '--';
+            }
+            return tokenSummary?.tokenBalance.UserBalance;
+        }, [tokenSummary]);
+    }
+*/
+
+
+
+
+        const [isHovered, setIsHovered] = useState(false);
 
     const handleHover = () => {
         setIsHovered(!isHovered);
@@ -72,6 +113,17 @@ const TokenInfo = () => {
     async function requestaccount() {
         await window.unisat.requestAccounts();
         setWalletConnected(true);
+
+        const [address] = await unisat.getAccounts();
+        setAddress(address);
+
+        const balance = await unisat.getBalance();
+        setBalance(balance);
+
+        const network = await unisat.getNetwork();
+        setNetwork(network);
+
+        console.log("address ", address, "    balance", balance);
     }
 
     return (
@@ -127,6 +179,7 @@ const TokenInfo = () => {
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                 {walletConnected ? (
                                     <p>Wallet Connected!</p>
+
                                 ) : (
                                     <Button onPress={requestaccount} size="10%" id="bluebutton">
                                         <span>Connect Wallet</span>
@@ -181,23 +234,29 @@ const TokenInfo = () => {
                         }}
                         onMouseEnter={(e) => {
                             e.currentTarget.style.boxShadow = '0 0 50px rgba(245, 245, 245, 0.3)';
+                            e.currentTarget.style.backgroundColor = '#9fc6ca'
                         }}
                         onMouseLeave={(e) => {
                             e.currentTarget.style.boxShadow = '0 0 0 rgba(0, 0, 0, 0.1)';
+                            e.currentTarget.style.background = 'linear-gradient(45deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.3) 100%)';
                         }}
                     >
                         <p>
                             {walletConnected && <p>pp</p>};
 
                             With $BXBT BRC-20 token, we present a new way to increase the value of your token with an innovative "burn" feature.
-                            <br /><br />
+                            <br/><br/>
                             This revolutionary feature offers $BXBT token holders the ability to reduce the total token supply by burning a specific amount of tokens.
                             The "burn" process involves irreversibly sending tokens to a special address, known as a "burn address", where they are permanently removed from circulation.
                         </p>
                     </div>
 
                     <div>
-                        <h2>You Have : xxx (info a reprendre du wallet) BXBT / if 0 bxbt = let's go buy some</h2>
+                        <h2 style={{color:"#ffffff", fontFamily:"Impact, sans-serif"}}>You actually have a total of {balance.total} satoshis in your balance !
+                            <br/>You should buy some $BXBT to take part of the first burn project on BRC-20</h2>
+
+
+
                     </div>
 
                     <ul style={{ listStyle: 'none', padding: '0' }}>
