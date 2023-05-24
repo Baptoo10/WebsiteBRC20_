@@ -127,7 +127,7 @@ const TokenInfo = () => {
     }
 
     return (
-      //  <main style={{ width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column'}}>
+
     <body>
         <div style={{  position: 'sticky', top: '0', backgroundColor: '#ffed57', borderBottom: '2px solid #351c75', zIndex: '999' }}>
             <header >
@@ -252,10 +252,14 @@ const TokenInfo = () => {
                     </div>
 
                     <div>
-                        <h2 style={{color:"#ffffff", fontFamily:"Impact, sans-serif"}}>You actually have a total of {balance.total} satoshis in your balance !
-                            <br/>You should buy some $BXBT to take part of the first burn project on BRC-20</h2>
 
+                        {walletConnected ? (
+                            <h2 style={{color:"#ffffff"}} id="h2satoshi">You actually have a total of {balance.total} satoshis in your balance !
+                                <br/>You should buy some $BXBT to take part of the first burn project on BRC-20</h2>
 
+                        ) : (
+                            <h2 style={{color:"#ffffff"}} id="h2satoshi">Connect The Wallet To See The Message ...</h2>
+                        )}
 
                     </div>
 
