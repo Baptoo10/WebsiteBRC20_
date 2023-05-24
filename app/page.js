@@ -1,11 +1,16 @@
 "use client"; // client component
 
-import { useState, useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import './globals.css';
 import { Container, Row, Col } from '@nextui-org/react';
 import { Button } from '@nextui-org/react';
 import Link from "next/link";
 import { NextUIProvider } from '@nextui-org/react';
+
+
+const LocationState = {
+    ticker: '',
+};
 
 const TokenInfo = () => {
     const totalSupply = 1000000;
@@ -39,6 +44,9 @@ const TokenInfo = () => {
         setNetwork(network);
     };
 
+    const state = Object.create(LocationState);
+    state.ticker = 'BXBT';
+
     async function getBXBTbalance() {
         await requestaccount();
 
@@ -68,27 +76,26 @@ const TokenInfo = () => {
 
     return (
       //  <main style={{ width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column'}}>
-        <body>
-        <div style={{ borderBottom: '2px solid #351c75', marginTop: '1%', marginLeft: '5%', marginRight: '5%' }}>
-            <header style={{  maxWidth: '100%' }}>
-                <nav style={{maxWidth: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 0' }}>
+    <body>
+        <div style={{  position: 'sticky', top: '0', backgroundColor: '#ffed57', borderBottom: '2px solid #351c75', zIndex: '999' }}>
+            <header >
+                <nav style={{  display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <ul style={{ display: 'flex', listStyle: 'none', gap: '10px', alignItems: 'center', width: '100%', marginBottom: '0' }}>
-
                         <li>
                             <div>
-                                <h1 style={{ color: '#ffffff' }}>$BXBT</h1>
+                                <h1 style={{ color: '#000000', margin: '0' }}>$BXBT</h1>
                             </div>
                         </li>
 
-                        <li style={{ paddingRight: '5%', paddingLeft: '5%' }}>
+                        <li style={{ paddingRight: '2%', paddingLeft: '2%' }}>
                             <Link href="https://bxbtcoreteam.gitbook.io/_bxbt_/informations/overview">
                                 <Button size="10%" id="bluebutton">
-                                    <span>Off BXBT Doc</span>
+                                    <span>BXBT Doc</span>
                                 </Button>
                             </Link>
                         </li>
 
-                        <li style={{ borderLeft: '2px solid #000000', paddingRight: '5%', paddingLeft: '5%' }}>
+                        <li style={{ borderLeft: '2px solid #000000', paddingRight: '2%', paddingLeft: '2%' }}>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                 <Link href="discord.gg/Wx9BYwJJ8J">
                                     <Button size="10%" id="bluebutton">
@@ -98,7 +105,7 @@ const TokenInfo = () => {
                             </div>
                         </li>
 
-                        <li style={{ borderLeft: '2px solid #000000', paddingRight: '5%', paddingLeft: '5%' }}>
+                        <li style={{ borderLeft: '2px solid #000000', paddingRight: '2%', paddingLeft: '2%'  }}>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                 <Link href="https://twitter.com/bxbt_brc20">
                                     <Button size="10%" id="bluebutton">
@@ -108,7 +115,7 @@ const TokenInfo = () => {
                             </div>
                         </li>
 
-                        <li style={{ borderLeft: '2px solid #000000', paddingRight: '5%', paddingLeft: '5%' }}>
+                        <li style={{ borderLeft: '2px solid #000000', paddingRight: '2%', paddingLeft: '2%'  }}>
                             <Link href="https://unisat.io/market?tick=bxbt&tab=1">
                                 <Button size="10%" id="bluebutton">
                                     <span>Buy $BXBT</span>
@@ -116,7 +123,7 @@ const TokenInfo = () => {
                             </Link>
                         </li>
 
-                        <li style={{ borderLeft: '2px solid #000000', paddingRight: '5%', paddingLeft: '5%' }}>
+                        <li style={{ borderLeft: '2px solid #000000', paddingRight: '2%', paddingLeft: '2%'  }}>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                 {walletConnected ? (
                                     <p>Wallet Connected!</p>
@@ -124,8 +131,8 @@ const TokenInfo = () => {
                                     <Button onPress={requestaccount} size="10%" id="bluebutton">
                                         <span>Connect Wallet</span>
                                     </Button>
-                                )}
-                            </div>
+                                    )}
+                                </div>
                         </li>
 
                     </ul>
@@ -133,7 +140,10 @@ const TokenInfo = () => {
             </header>
         </div>
 
-        <div style={{ display: 'grid', justifyContent: 'center', marginTop: '50px', paddingLeft:'5%', paddingRight:'5%' }}>
+
+
+
+                <div style={{ display: 'grid', justifyContent: 'center', marginTop: '50px', paddingLeft:'5%', paddingRight:'5%' }}>
             <Row justify="center" align="stretch">
                 <Col >
                     <div
@@ -170,7 +180,6 @@ const TokenInfo = () => {
                             boxShadow: '0 0 0 rgba(24, 100, 171, 0.1)',
                         }}
                         onMouseEnter={(e) => {
-                            getBXBTbalance();
                             e.currentTarget.style.boxShadow = '0 0 50px rgba(245, 245, 245, 0.3)';
                         }}
                         onMouseLeave={(e) => {
@@ -178,6 +187,8 @@ const TokenInfo = () => {
                         }}
                     >
                         <p>
+                            {walletConnected && <p>pp</p>};
+
                             With $BXBT BRC-20 token, we present a new way to increase the value of your token with an innovative "burn" feature.
                             <br /><br />
                             This revolutionary feature offers $BXBT token holders the ability to reduce the total token supply by burning a specific amount of tokens.
@@ -229,12 +240,11 @@ const TokenInfo = () => {
 
 
         <footer style={{ padding: '20px', textAlign: 'center' }}>
-                <p style={{ margin: '0' }}>Ceci est le contenu du footer</p>
-            </footer>
+                <h3 style={{ margin: '0', color:'#000000' }}>BXBT core team - 2023</h3>
+        </footer>
 
-        </body>
+    </body>
      //   </main>
-
     );
 };
 

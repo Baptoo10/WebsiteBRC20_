@@ -63,16 +63,18 @@ section li {
 }
 
 #bluebutton {
-    background: #ffe401;
+    background: #3d038c;
     font-size: 16px;
     font-weight: 700;
-    background-color: #ffe401; /* Couleur jaune-or */
+    background-color: #3d038c; /* Couleur jaune-or */
     color: #fff;
     padding: 10px 20px;
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+
+
 
 #bluebutton:hover {
     background-color: #000; /* Couleur jaune-or foncée au survol */
@@ -84,6 +86,16 @@ section li {
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
     border: 2px solid #ccc;
     padding: 4px;
+}
+
+container {
+    max-width: 10%;
+}
+row {
+    flex: 1;
+}
+col {
+    flex: 1;
 }
 
 
