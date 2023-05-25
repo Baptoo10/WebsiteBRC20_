@@ -348,7 +348,7 @@ function TokenInfo() {
         </div>
 
         <div style={{ background: '#e7e8d2', border: '2px solid #000000', maxWidth:'70%', margin: '0 auto', display: 'flex', justifyContent: 'center'}}>
-            <canvas ref={chartRef} />
+            <canvas ref={chartRef}/>
         </div>
 
 
