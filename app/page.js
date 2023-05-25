@@ -1,11 +1,13 @@
 "use client"; // client component
 
-import React, { useState, useMemo, useEffect, useContext, createContext } from 'react';
+import React, { useState, useRef, useMemo, useEffect, useContext, createContext } from 'react';
 import './globals.css';
 import { Container, Row, Col } from '@nextui-org/react';
 import { Button } from '@nextui-org/react';
 import Link from "next/link";
 import { NextUIProvider } from '@nextui-org/react';
+import Chart from 'chart.js/auto';
+
 
 /*
 const TokenBalance = {
@@ -21,15 +23,8 @@ const TokenInfo = {
 
 
 const TokenInfo = () => {
-    const totalSupply = 1000000;
-    const totalBurned = 50000;
-    const totalWallets = 1000;
-    const holdersDistribution = [
-        { address: '0x123...', balance: 500 },
-        { address: '0x456...', balance: 200 },
-        { address: '0x789...', balance: 300 },
-    ];
-    const nextBurnDate = '2023-06-01 12:00:00';
+
+    const totalWallets = 172;
 
     const [walletConnected, setWalletConnected] = useState(false);
     const [address, setAddress] = useState("");
@@ -126,6 +121,65 @@ const TokenInfo = () => {
         console.log("address ", address, "    balance", balance);
     }
 
+
+
+    //chart.js
+    const chartRef = useRef(null);
+   // const canvas = React.useRef()
+
+    useEffect(() => {
+
+        const canvas = chartRef.current;
+
+        if (!canvas) {
+            return;
+        }
+
+        const ctx = canvas.getContext('2d');
+        // const ctx = canvas.current.getContext('2d');
+
+        const startDate = new Date('2023-05-21');
+        const endDate = new Date('2023-06-21');
+        const timeDiff = endDate.getTime() - startDate.getTime();
+        const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+        const initialSupply = 100000000;
+        const burnAmount = 210000;
+        const burnInterval = 2;
+
+        const labels = [];
+        const data = [];
+
+        for (let i = 0; i <= daysDiff; i++) {
+            const currentDate = new Date(startDate.getTime() + i * 24 * 60 * 60 * 1000);
+            labels.push(currentDate.toLocaleDateString());
+
+            const supply = initialSupply - Math.floor(i / burnInterval) * burnAmount;
+            data.push(supply);
+        }
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '$BXBT Supply Previsions',
+                    data: data,
+                    borderColor: '#3d038c',
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: false
+                    }
+                }
+            }
+        });
+    }, []);
+
     return (
 
     <body>
@@ -149,7 +203,7 @@ const TokenInfo = () => {
 
                         <li style={{ borderLeft: '2px solid #000000', paddingRight: '2%', paddingLeft: '2%' }}>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <Link href="discord.gg/Wx9BYwJJ8J">
+                                <Link href="https://discord.gg/Wx9BYwJJ8J">
                                     <Button size="10%" id="bluebutton">
                                         <span>Join the Discord</span>
                                     </Button>
@@ -196,18 +250,11 @@ const TokenInfo = () => {
 
 
 
-                <div style={{ display: 'grid', justifyContent: 'center', marginTop: '50px', paddingLeft:'5%', paddingRight:'5%' }}>
+        <div style={{ display: 'grid', justifyContent: 'center', marginTop: '50px', paddingLeft:'5%', paddingRight:'5%', paddingBottom:'3%' }}>
             <Row justify="center" align="stretch">
                 <Col >
                     <div
-                        style={{
-                            background: 'linear-gradient(45deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.3) 100%)',
-                            borderRadius: '10px',
-                            padding: '10px',
-                            textAlign: 'left',
-                            transition: 'box-shadow 0.3s',
-                            boxShadow: '0 0 0 rgba(24, 100, 171, 0.1)',
-                        }}
+                        id={"textcolor"} style={{borderRadius: '10px'}}
                         onMouseEnter={(e) => {
                             e.currentTarget.style.boxShadow = '0 0 50px rgba(245, 245, 245, 0.3)';
                             e.currentTarget.style.backgroundColor = '#9fc6ca'
@@ -224,14 +271,7 @@ const TokenInfo = () => {
                     <br/>
                     <br/>
                     <div
-                        style={{
-                            background: 'linear-gradient(45deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.3) 100%)',
-                            borderRadius: '10px',
-                            padding: '10px',
-                            textAlign: 'left',
-                            transition: 'box-shadow 0.3s',
-                            boxShadow: '0 0 0 rgba(24, 100, 171, 0.1)',
-                        }}
+                        id={"textcolor"} style={{borderRadius: '10px'}}
                         onMouseEnter={(e) => {
                             e.currentTarget.style.boxShadow = '0 0 50px rgba(245, 245, 245, 0.3)';
                             e.currentTarget.style.backgroundColor = '#9fc6ca'
@@ -242,8 +282,6 @@ const TokenInfo = () => {
                         }}
                     >
                         <p>
-                            {walletConnected && <p>pp</p>};
-
                             With $BXBT BRC-20 token, we present a new way to increase the value of your token with an innovative "burn" feature.
                             <br/><br/>
                             This revolutionary feature offers $BXBT token holders the ability to reduce the total token supply by burning a specific amount of tokens.
@@ -251,40 +289,43 @@ const TokenInfo = () => {
                         </p>
                     </div>
 
-                    <div>
+                    <div style={{borderBottom: '2px solid #351c75'}}>
 
                         {walletConnected ? (
                             <h2 style={{color:"#ffffff"}} id="h2satoshi">You actually have a total of {balance.total} satoshis in your balance !
-                                <br/>You should buy some $BXBT to take part of the first burn project on BRC-20</h2>
+                                Buy some $BXBT to take part of the first burn project on BRC-20.</h2>
 
                         ) : (
-                            <h2 style={{color:"#ffffff"}} id="h2satoshi">Connect The Wallet To See The Message ...</h2>
+                            <h2 style={{color:"#ffffff"}} id="h2satoshi">Download the <Link style={{color:'#ffffff'}} href={"https://unisat.io/"}>Unisat wallet</Link> to buy $BXBT</h2>
                         )}
 
                     </div>
 
-                    <ul style={{ listStyle: 'none', padding: '0' }}>
-                        <li style={{ marginBottom: '10px' }}>
-                            <div style={{ border: '1px solid #b72015', borderRadius: '5px', padding: '10px' }}>
-                                totalSupply: {totalSupply}
-                            </div>
-                        </li>
-                        <li style={{ marginBottom: '10px' }}>
-                            <div style={{ border: '1px solid #b72015', borderRadius: '5px', padding: '10px' }}>
-                                totalBurned: {totalBurned}
-                            </div>
-                        </li>
-                        <li style={{ marginBottom: '10px' }}>
-                            <div style={{ border: '1px solid #b72015', borderRadius: '5px', padding: '10px' }}>
-                                totalWallets: {totalSupply}
-                            </div>
-                        </li>
-                        <li style={{ marginBottom: '10px' }}>
-                            <div style={{ border: '1px solid #b72015', borderRadius: '5px', padding: '10px' }}>
-                                totalSupply: {totalSupply}
-                            </div>
-                        </li>
-                    </ul>
+                    <div>
+                        <h2 style={{color:"#ffffff"}} id="h2satoshi">About $BXBT</h2>
+                        <ul style={{ listStyle: 'none', padding: '0' }}>
+                            <li style={{ marginBottom: '10px' }}>
+                                <div id={"textcolor"} style={{ border: '1px solid #b72015', borderRadius: '5px', padding: '10px' }}>
+                                    Created by real Bitcoiners.
+                                </div>
+                            </li>
+                            <li style={{ marginBottom: '10px' }}>
+                                <div id={"textcolor"} style={{ border: '1px solid #b72015', borderRadius: '5px', padding: '10px' }}>
+                                    Created by Web3 builders.
+                                </div>
+                            </li>
+                            <li style={{ marginBottom: '10px' }}>
+                                <div id={"textcolor"} style={{ border: '1px solid #b72015', borderRadius: '5px', padding: '10px' }}>
+                                    Created by blockchain enthusiasts.
+                                </div>
+                            </li>
+                            <li style={{ marginBottom: '10px' }}>
+                                <div id={"textcolor"} style={{ border: '1px solid #b72015', borderRadius: '5px', padding: '10px' }}>
+                                    Total Holders: {totalWallets}.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </Col>
                 <Col>
                     <div style={{ marginLeft: '5%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -298,8 +339,9 @@ const TokenInfo = () => {
             </Row>
         </div>
 
-
-
+        <div style={{ background: '#e7e8d2', border: '2px solid #000000', maxWidth:'70%', margin: '0 auto', display: 'flex', justifyContent: 'center'}}>
+            <canvas ref={chartRef} />
+        </div>
 
 
         <footer style={{ padding: '20px', textAlign: 'center' }}>
