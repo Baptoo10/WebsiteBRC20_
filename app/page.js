@@ -7,7 +7,7 @@ import { Button } from '@nextui-org/react';
 import Link from "next/link";
 import { NextUIProvider } from '@nextui-org/react';
 import Chart from 'chart.js/auto';
-
+import Head from 'next/head';
 
 /*
 const TokenBalance = {
@@ -22,7 +22,7 @@ const TokenInfo = {
 */
 
 
-const TokenInfo = () => {
+function TokenInfo() {
 
     const totalWallets = 172;
 
@@ -181,8 +181,16 @@ const TokenInfo = () => {
     }, []);
 
     return (
+<>
+    <Head>
+        <title>BXBT Website</title>
+        <link rel="shortcut icon" href="../public/bxbtlogo.ico"/>
+    </Head>
+
 
     <body>
+    <title>BXBT Website</title>
+
         <div style={{  position: 'sticky', top: '0', backgroundColor: '#ffed57', borderBottom: '2px solid #351c75', zIndex: '999' }}>
             <header >
                 <nav style={{  display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -232,7 +240,7 @@ const TokenInfo = () => {
                         <li style={{ borderLeft: '2px solid #000000', paddingRight: '2%', paddingLeft: '2%'  }}>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                 {walletConnected ? (
-                                    <p>Wallet Connected!</p>
+                                    <p id="bluebutton">Wallet Connected!</p>
 
                                 ) : (
                                     <Button onPress={requestaccount} size="10%" id="bluebutton">
@@ -349,7 +357,7 @@ const TokenInfo = () => {
         </footer>
 
     </body>
-     //   </main>
+</>
     );
 };
 

@@ -64,6 +64,7 @@ section li {
 }
 
 #bluebutton {
+    border-radius: 15px;
     background: #3d038c;
     font-size: 16px;
     font-weight: 700;
