@@ -8,6 +8,7 @@ import Link from "next/link";
 import { NextUIProvider } from '@nextui-org/react';
 import Chart from 'chart.js/auto';
 import Head from 'next/head';
+import Image from 'next/image';
 
 /*
 const TokenBalance = {
@@ -337,10 +338,12 @@ function TokenInfo() {
                 </Col>
                 <Col>
                     <div style={{ marginLeft: '5%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <img
+                        <Image
                             src="/bitcoin_burning_artdeco.png"
                             alt="bitcoin_burning_artdeco"
                             style={{ width: '100%', height: 'auto', objectFit: 'contain', borderRadius: '10px' }}
+                            width={'500'}
+                            height={'500'}
                         />
                     </div>
                 </Col>
