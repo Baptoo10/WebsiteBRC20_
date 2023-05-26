@@ -5,7 +5,6 @@ import './globals.css';
 import { Container, Row, Col } from '@nextui-org/react';
 import { Button } from '@nextui-org/react';
 import Link from "next/link";
-import { NextUIProvider } from '@nextui-org/react';
 import Chart from 'chart.js/auto';
 import Head from 'next/head';
 import Image from 'next/image';
