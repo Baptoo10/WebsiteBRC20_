@@ -290,10 +290,10 @@ function TokenInfo() {
                         }}
                     >
                         <p>
-                            With $BXBT BRC-20 token, we present a new way to increase the value of your token with an innovative "burn" feature.
+                            With $BXBT BRC-20 token, we present a new way to increase the value of your token with an innovative &quot;burn&quot; feature.
                             <br/><br/>
                             This revolutionary feature offers $BXBT token holders the ability to reduce the total token supply by burning a specific amount of tokens.
-                            The "burn" process involves irreversibly sending tokens to a special address, known as a "burn address", where they are permanently removed from circulation.
+                            The &quot;burn&quot; process involves irreversibly sending tokens to a special address, known as a &quot;burn address&quot;, where they are permanently removed from circulation.
                         </p>
                     </div>
 
